@@ -22,3 +22,25 @@ export const getUserByEmail = async (email: string): Promise<any> => {
 
   return data[0];
 };
+
+export const updateAppMetadata = async (
+  id: string,
+  payload: Record<string, unknown>
+) => {
+  const idQuery = id.replace(/\|/, "%7C");
+  const url = `${API_URL}/users/${idQuery}`;
+
+  console.log({ url });
+
+  const { access_token } = await getAccessToken();
+
+  const { data: response } = await Axios.patch(
+    url,
+    { app_metadata: payload },
+    {
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+  );
+
+  return response;
+};

@@ -9,4 +9,11 @@ export const getUserByEmail = async (email: string): Promise<any> => {
   return user;
 };
 
-export const updateUserMetadata = (id: string, payload: unknown) => {};
+export const updateMetadata = async (
+  id: string,
+  payload: Record<string, unknown>
+) => {
+  const updatedUser = await Auth0Api.updateAppMetadata(id, payload);
+
+  return updatedUser;
+};
